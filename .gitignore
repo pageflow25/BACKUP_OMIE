@@ -143,4 +143,6 @@ media/
 # Gemini AI
 .gemini/
 
-/backup_com_xml
+# Backup databases folder
+**/backup_com_xml/
+backup_com_xml/
