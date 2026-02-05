@@ -6,6 +6,27 @@ from django.conf import settings
 from .routers import set_current_database
 
 
+class COOPDisableMiddleware:
+    """
+    Middleware que desabilita o Cross-Origin-Opener-Policy header para
+    acesso via HTTP ou endereços IP em desenvolvimento.
+    Remove o header COOP que causa avisos no navegador para origens não-seguras.
+    """
+    
+    def __init__(self, get_response):
+        self.get_response = get_response
+    
+    def __call__(self, request):
+        response = self.get_response(request)
+        
+        # Remover COOP header em desenvolvimento/HTTP
+        if settings.DEBUG or request.scheme == 'http':
+            if 'Cross-Origin-Opener-Policy' in response:
+                del response['Cross-Origin-Opener-Policy']
+        
+        return response
+
+
 class DatabaseSelectorMiddleware:
     """
     Middleware que lê o banco de dados selecionado da sessão

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'core.middleware.COOPDisableMiddleware',  # Desabilita COOP header em desenvolvimento
     'core.middleware.DatabaseSelectorMiddleware',  # Seleção de banco de dados
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
